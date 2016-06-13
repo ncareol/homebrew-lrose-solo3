@@ -1,24 +1,26 @@
 
-class Solo3 < Formula
-  homepage "https://www.eol.ucar.edu/software/solo3"
-  url "https://www.eol.ucar.edu/system/files/software/solo3/all-oss/solo3-20150307.src_.tgz"
-  version "20150307"
-  sha256 "2d2474757488776aeee9ab1cb21625b20c238939c09d83a3c718009aa53ab773"
+require 'formula'
 
-  depends_on :x11 # if your formula requires any X11/XQuartz components
-  depends_on "gtk+"
+# Documentation: https://github.com/mxcl/homebrew/wiki/Formula-Cookbook
+
+class Solo3 < Formula
+  homepage 'https://www.eol.ucar.edu/software/solo3'
+  url 'https://www.eol.ucar.edu/system/files/software/solo3/all-oss/solo3-20160613.src_.tgz'
+  version '20160613'
+  sha256 '98f6bcd6df998426f41346f7d9b848901ceee9911608b864182ee5e068300c1c'
+
+  depends_on 'gtk+'
   depends_on 'gtkmm'
   depends_on 'pkg-config' => :build
 
   def install
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}"
-    system "make", "install" # if this fails, try separate make/make install steps
+    system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
+    system "make install"
   end
 
-  test do
-    system "solo3"
+  def test
+    # Run the test with `brew test solo3`.
+     system "#{bin}/solo3", "-h"
   end
 end
+
